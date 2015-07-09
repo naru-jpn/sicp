@@ -1,6 +1,7 @@
 (define device (make-graphics-device (car (enumerate-graphics-types))))
-(write-string ";\n;How to use:\n")
-(write-string ";  (plot-2d func max-x max-y delta title)\n")
+(clear)
+(write-string ";How to use:\n")
+(write-string ";  (plot-2d f(x) max-x max-y delta title)\n")
 (write-string ":  Type '(graphics-close device)' when you close graphic window.\n\n")
 
 (define (plot-2d f max-x max-y delta title)
@@ -19,10 +20,10 @@
         (define (scale-x _x) (/ _x max-x))
         (define (scale-y _y) (/ _y max-y))
         (graphics-draw-line device (scale-x x) (scale-y (f x)) (scale-x (next x)) (scale-y (f (next x)))))
-    (define (recursive-draw-line x)
+    (define (iterative-draw-line x)
         (cond
             ((> x max-x) (string-append "Drawn graph named '" title "'."))
             (else (draw-line x)
-                  (recursive-draw-line (next x)))))
-    (recursive-draw-line (- max-x)))
+                  (iterative-draw-line (next x)))))
+    (iterative-draw-line (- max-x)))
 

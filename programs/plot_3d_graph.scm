@@ -1,6 +1,7 @@
 (define device (make-graphics-device (car (enumerate-graphics-types))))
-(write-string ";\n;How to use:\n")
-(write-string ";  (plot-3d func max-x max-y max-z delta title)\n")
+(clear)
+(write-string ";How to use:\n")
+(write-string ";  (plot-3d f(x,y) max-x max-y max-z delta title)\n")
 (write-string ":  Type '(graphics-close device)' when you close graphic window.\n\n")
 
 (define (plot-3d f max-x max-y max-z delta title)
@@ -35,23 +36,23 @@
     (define (draw-line-y x y)
         (graphics-draw-line device (scale-x x y) (scale-y x y (f x y)) (scale-x x (next y)) (scale-y x (next y) (f x (next y)))))
 
-    (define (recursive-draw-line-x x y)
+    (define (iterative-draw-line-x x y)
         (cond
             ((>= x max-x) (cond 
                 ((>= y max-y) ())
-                (else (recursive-draw-line-x (- max-x) (next y)))))
+                (else (iterative-draw-line-x (- max-x) (next y)))))
             (else (draw-line-x x y)
-                  (recursive-draw-line-x (next x) y))))
+                  (iterative-draw-line-x (next x) y))))
 
-    (define (recursive-draw-line-y x y)
+    (define (iterative-draw-line-y x y)
         (cond
             ((>= y max-y) (cond 
                 ((>= x max-x) ())
-                (else (recursive-draw-line-y (next x) (- max-y)))))
+                (else (iterative-draw-line-y (next x) (- max-y)))))
             (else (draw-line-y x y)
-                  (recursive-draw-line-y x (next y)))))
+                  (iterative-draw-line-y x (next y)))))
    
-    (recursive-draw-line-x (- max-x) (- max-y)) 
-    (recursive-draw-line-y (- max-x) (- max-y))
+    (iterative-draw-line-x (- max-x) (- max-y)) 
+    (iterative-draw-line-y (- max-x) (- max-y))
     (string-append "Drawn graph named '" title "'.")
 )
