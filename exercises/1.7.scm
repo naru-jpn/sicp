@@ -36,6 +36,7 @@
 ; 2000 という値は 2 に対する 0.001 から定めた。
 ; この指定は、入力値の 1/2000 の誤差までを許容する事を意味する。
 
+
 ; 新しいプログラム
 
 (define (square x) (* x x)) 
@@ -51,4 +52,31 @@
 (define (sqrt-iter guess x) (if (good-enough? guess x) guess (sqrt-iter (improve guess x) x))) 
 
 (define (sqrt x) (sqrt-iter 1.0 x))
+
+
+; 実行結果
+
+(sqrt 1.0e+16)
+;Value: 100004343.48109704
+
+(sqrt 1.0e-16)
+;Value: 1.0000434348109706e-8
+
+; 許容する誤差を入力値の 1/2000 にしているので、精度が悪い。
+; acceptable_error を適当に修正する事で、任意の精度で計算を行う事ができる。
+
+(define (acceptable_error x) (/ x 1.0e+12))
+
+(sqrt 1.0e+16)
+;Value: 100000000.
+
+(sqrt 1.0e-16)
+;Value: .00000001
+
+(sqrt 1.0e+50)
+;Value: 1.0000000000000725e25
+
+(sqrt 1.0e-50)
+;Value: 1.0000000000000725e-25
+
 
