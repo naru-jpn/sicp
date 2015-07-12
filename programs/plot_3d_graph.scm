@@ -1,3 +1,6 @@
+; 2変数関数を3次元上にプロットします。
+; 反復的プロセスで計算を行います。
+
 (define device (make-graphics-device (car (enumerate-graphics-types))))
 (clear)
 (write-string ";How to use:\n")
