@@ -4,12 +4,12 @@
 (define device (make-graphics-device (car (enumerate-graphics-types))))
 (clear)
 (write-string ";How to use:\n")
-(write-string ";  (plot-2d f(x) max-x max-y delta title)\n")
+(write-string ";  (plot-2d f(x) max-x max-y delta title clear_or_not)\n")
 (write-string ":  Type '(graphics-close device)' when you close graphic window.\n\n")
 
-(define (plot-2d f max-x max-y delta title)
+(define (plot-2d f max-x max-y delta title clear)
     ; clear
-    (graphics-clear device)
+    (if clear (graphics-clear device) ())
     ; draw title, x-axis, y-axis
     (graphics-draw-text device -0.96 0.94 title)
     (graphics-draw-line device -1 0 1 0)

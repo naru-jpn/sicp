@@ -4,12 +4,12 @@
 (define device (make-graphics-device (car (enumerate-graphics-types))))
 (clear)
 (write-string ";How to use:\n")
-(write-string ";  (plot-3d f(x,y) max-x max-y max-z delta title)\n")
+(write-string ";  (plot-3d f(x,y) max-x max-y max-z delta title clear_or_not)\n")
 (write-string ":  Type '(graphics-close device)' when you close graphic window.\n\n")
 
-(define (plot-3d f max-x max-y max-z delta title)
+(define (plot-3d f max-x max-y max-z delta title clear)
     ; clear
-    (graphics-clear device)
+    (if clear (graphics-clear device) ())
     ; draw title, x-axis, y-axis, x-axis
     (graphics-draw-text device -0.96 0.94 title)
     (graphics-draw-line device -0.80 -0.70  0.30 -0.90) ; x-front
